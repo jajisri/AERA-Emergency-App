@@ -1,0 +1,493 @@
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      🚨 <b>AERA</b>
+      <small>AI EMERGENCY RESPONSE ASSISTANT</small>
+    </div>
+
+    <button class="nav active" onclick="showPage('dashboard', this)">
+      📊 Dashboard
+    </button>
+
+    <button class="nav" onclick="showPage('report', this)">
+      ⚠️ Report Emergency
+    </button>
+
+    <button class="nav" onclick="showPage('map', this)">
+      🗺️ Incident Map
+    </button>
+
+    <button class="nav" onclick="showPage('dispatch', this)">
+      🚑 Dispatch
+    </button>
+
+    <button class="nav" onclick="showPage('agencies', this)">
+      👥 Agencies
+    </button>
+
+    <button class="nav" onclick="showPage('assistant', this)">
+      🤖 AI Assistant
+    </button>
+
+    <div class="demo">
+      🟢 DEMO MODE
+      <small>Sample data for demonstration</small>
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN AREA -->
+  <main>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <section id="dashboard" class="page active">
+
+      <div class="hero">
+
+        <div>
+          <label>AERA CONTROL ROOM</label>
+
+          <h1>Emergency Response Command Center</h1>
+
+          <p>
+            AI-powered emergency triage, incident monitoring,
+            hotspot detection and dispatch coordination.
+          </p>
+        </div>
+
+        <button class="hero-btn" onclick="demoEmergency()">
+          🚨 Load Demo Emergency
+        </button>
+
+      </div>
+
+
+      <div class="status">
+        🟢 <b>SYSTEM OPERATIONAL</b>
+        — Emergency monitoring and response simulation ready
+      </div>
+
+
+      <div class="cards">
+
+        <div class="card blue-card">
+          <small>ACTIVE INCIDENTS</small>
+          <h2 id="active">4</h2>
+          <span>Currently tracked</span>
+        </div>
+
+        <div class="card purple-card">
+          <small>CRITICAL INCIDENTS</small>
+          <h2 id="critical">1</h2>
+          <span>Immediate response</span>
+        </div>
+
+        <div class="card cyan-card">
+          <small>AVAILABLE UNITS</small>
+          <h2>10</h2>
+          <span>Response units</span>
+        </div>
+
+        <div class="card green-card">
+          <small>RESOLVED INCIDENTS</small>
+          <h2>27</h2>
+          <span>Closed cases</span>
+        </div>
+
+      </div>
+
+
+      <h2 class="section-title">Recent Emergency Incidents</h2>
+
+      <div class="card table-card">
+
+        <table>
+
+          <tr>
+            <th>INCIDENT</th>
+            <th>LOCATION</th>
+            <th>PRIORITY</th>
+            <th>UNIT</th>
+            <th>STATUS</th>
+          </tr>
+
+          <tr>
+            <td>🚗 Road Accident</td>
+            <td>Main Road</td>
+            <td><span class="critical">CRITICAL</span></td>
+            <td>Ambulance A1</td>
+            <td>Responding</td>
+          </tr>
+
+          <tr>
+            <td>🔥 Building Fire</td>
+            <td>Market Area</td>
+            <td><span class="high">HIGH</span></td>
+            <td>Fire Unit F2</td>
+            <td>Responding</td>
+          </tr>
+
+          <tr>
+            <td>🚑 Medical Emergency</td>
+            <td>School Road</td>
+            <td><span class="high">HIGH</span></td>
+            <td>Ambulance A3</td>
+            <td>Assigned</td>
+          </tr>
+
+          <tr>
+            <td>🌊 Flood Alert</td>
+            <td>River Area</td>
+            <td><span class="medium">MEDIUM</span></td>
+            <td>Rescue R1</td>
+            <td>Monitoring</td>
+          </tr>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ================= REPORT ================= -->
+
+    <section id="report" class="page">
+
+      <h1>⚠️ Report Emergency</h1>
+
+      <p class="subtitle">
+        Enter emergency information and AERA will perform an AI-style triage.
+      </p>
+
+
+      <div class="card form-card">
+
+        <label>Emergency Type</label>
+
+        <select id="type">
+
+          <option>Road Accident</option>
+          <option>Fire</option>
+          <option>Medical Emergency</option>
+          <option>Flood</option>
+          <option>Electrical Emergency</option>
+
+        </select>
+
+
+        <label>Location</label>
+
+        <div class="location-row">
+
+          <input
+            id="location"
+            placeholder="Enter location"
+          >
+
+          <button
+            type="button"
+            onclick="getLocation()"
+          >
+            📍 Use My Location
+          </button>
+
+        </div>
+
+        <p id="gpsStatus"></p>
+
+
+        <label>Description</label>
+
+        <textarea
+          id="description"
+          placeholder="Describe what happened..."
+        ></textarea>
+
+
+        <label>People Affected</label>
+
+        <input
+          id="people"
+          type="number"
+          min="0"
+          placeholder="Example: 3"
+        >
+
+
+        <label>Urgency</label>
+
+        <select id="urgency">
+
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+          <option>Critical</option>
+
+        </select>
+
+
+        <button class="main-btn" onclick="analyze()">
+          🤖 Analyze Emergency with AI
+        </button>
+
+
+        <div id="result"></div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ================= MAP ================= -->
+
+    <section id="map" class="page">
+
+      <h1>🗺️ AI Incident Map</h1>
+
+      <p class="subtitle">
+        View sample emergency incidents and their locations.
+      </p>
+
+
+      <div id="incidentMap">
+
+        <div class="map-title">
+          LIVE INCIDENT VIEW
+        </div>
+
+      </div>
+
+
+      <div class="map-info card">
+
+        <h2>📍 Selected Incident</h2>
+
+        <p id="mapLocation">
+          No incident selected yet.
+        </p>
+
+        <button
+          class="main-btn"
+          onclick="showMyLocationOnMap()"
+        >
+          📍 Show My Location
+        </button>
+
+      </div>
+
+
+      <h2 class="section-title">
+        📊 Incident Statistics
+      </h2>
+
+
+      <div class="cards">
+
+        <div class="card blue-card">
+          <small>TOTAL INCIDENTS</small>
+          <h2 id="totalIncidents">4</h2>
+        </div>
+
+        <div class="card purple-card">
+          <small>HIGH-RISK AREAS</small>
+          <h2 id="highRiskAreas">2</h2>
+        </div>
+
+        <div class="card orange-card">
+          <small>MEDIUM-RISK AREAS</small>
+          <h2 id="mediumRiskAreas">2</h2>
+        </div>
+
+        <div class="card green-card">
+          <small>TOP HOTSPOT</small>
+          <h2 id="topHotspot">Market Area</h2>
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ================= DISPATCH ================= -->
+
+    <section id="dispatch" class="page">
+
+      <h1>🚑 AI Dispatch Optimizer</h1>
+
+      <p class="subtitle">
+        AERA recommends the most suitable available response unit.
+      </p>
+
+
+      <div class="card">
+
+        <h2>Selected Incident: 🚗 Road Accident</h2>
+
+        <div class="dispatch-alert">
+          🤖 AI has compared available units based on response distance.
+        </div>
+
+
+        <table>
+
+          <tr>
+            <th>UNIT</th>
+            <th>DISTANCE</th>
+            <th>STATUS</th>
+          </tr>
+
+          <tr>
+            <td>Ambulance A1</td>
+            <td>4.2 km</td>
+            <td>Available</td>
+          </tr>
+
+          <tr class="best">
+            <td>⭐ Ambulance A2</td>
+            <td><b>2.1 km</b></td>
+            <td>Available</td>
+          </tr>
+
+          <tr>
+            <td>Ambulance A3</td>
+            <td>5.7 km</td>
+            <td>Available</td>
+          </tr>
+
+        </table>
+
+
+        <div class="recommend">
+
+          🤖 <b>AI RECOMMENDATION</b>
+
+          <p>
+            Ambulance A2 is recommended because it has
+            the shortest estimated response distance.
+          </p>
+
+          <button
+            class="main-btn"
+            onclick="assignUnit()"
+          >
+            🚑 Assign Ambulance A2
+          </button>
+
+        </div>
+
+
+        <p id="dispatchStatus"></p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ================= AGENCIES ================= -->
+
+    <section id="agencies" class="page">
+
+      <h1>👥 Multi-Agency Coordination</h1>
+
+      <p class="subtitle">
+        Coordinate different emergency response teams.
+      </p>
+
+
+      <div class="cards agency-grid">
+
+        <div class="card blue-card agency-card">
+          <div class="big-icon">🚑</div>
+          <h2>Ambulance</h2>
+          <p>Medical assistance</p>
+          <b>● Responding</b>
+        </div>
+
+
+        <div class="card purple-card agency-card">
+          <div class="big-icon">🚓</div>
+          <h2>Police</h2>
+          <p>Traffic and security control</p>
+          <b>● Responding</b>
+        </div>
+
+
+        <div class="card orange-card agency-card">
+          <div class="big-icon">🚒</div>
+          <h2>Fire & Rescue</h2>
+          <p>Fire and rescue support</p>
+          <b>● Standby</b>
+        </div>
+
+
+        <div class="card green-card agency-card">
+          <div class="big-icon">🤖</div>
+          <h2>AERA</h2>
+          <p>Response coordination</p>
+          <b>● Operational</b>
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ================= AI ASSISTANT ================= -->
+
+    <section id="assistant" class="page">
+
+      <h1>🤖 AERA AI Assistant</h1>
+
+      <p class="subtitle">
+        Describe a sample emergency and receive basic safety guidance.
+      </p>
+
+
+      <div class="card">
+
+        <div id="chat" class="chat">
+
+          <div class="bot">
+            🤖 <b>AERA:</b>
+            Hello! Describe a sample emergency.
+          </div>
+
+        </div>
+
+
+        <div class="chat-row">
+
+          <input
+            id="chatInput"
+            placeholder="Example: There is a fire near a school"
+          >
+
+          <button
+            class="main-btn"
+            onclick="sendMessage()"
+          >
+            Send
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+</div>
